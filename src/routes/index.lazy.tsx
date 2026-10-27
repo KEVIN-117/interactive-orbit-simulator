@@ -1,60 +1,116 @@
-import { createLazyFileRoute, Link } from '@tanstack/react-router';
-import { Globe, Rocket } from 'lucide-react';
-
-export const Route = createLazyFileRoute('/')({
-  component: Index,
-});
-
-function Index() {
+import { createLazyFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, Code2, MousePointer2, Orbit } from "lucide-react";
+import SolarSystemScene from "../components/SolarSystemScene";
+export const Route = createLazyFileRoute("/")({ component: Home });
+function Home() {
   return (
-    <div className="min-h-screen bg-[#0a0a0b] text-zinc-400 font-sans p-8 flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-      <div className="relative z-10 text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-zinc-100 mb-4 uppercase tracking-widest drop-shadow-lg">
-          Simuladores Astrofísicos
-        </h1>
-        <p className="text-zinc-400 max-w-xl mx-auto text-sm md:text-base leading-relaxed">
-          Explora la mecánica orbital y los sistemas estelares a través de simulaciones interactivas en tiempo real. Selecciona un módulo para comenzar.
+    <div className="home-page">
+      <section className="home-hero">
+        <SolarSystemScene preview />
+        <div className="hero-copy">
+          <h1>
+            Hay un universo
+            <br />
+            que puedes crear.
+          </h1>
+          <p>
+            Explora nuestro sistema solar y toma el control de una misión
+            espacial. Descubre lo que puedes construir con la programación.
+          </p>
+          <div className="hero-actions">
+            <Link className="primary-button" to="/simulador-sistema-solar">
+              Explorar el sistema solar <ArrowRight size={18} />
+            </Link>
+            <Link className="text-link" to="/simulador-orbita">
+              Ir al laboratorio orbital <ArrowRight size={17} />
+            </Link>
+            <Link className="text-link" to="/galeria-universo">
+              Descubrir el espacio profundo <ArrowRight size={17} />
+            </Link>
+          </div>
+          <p className="hero-footnote">
+            <MousePointer2 size={15} /> Una experiencia interactiva. Tú tienes
+            los controles.
+          </p>
+        </div>
+        <div className="earth-caption">
+          <span className="dot mint" /> Nuestro punto de partida
+          <strong>La Tierra</strong>
+          <span>Un mundo que también podemos modelar con código.</span>
+        </div>
+      </section>
+      <section
+        className="discovery-strip"
+        aria-label="La informática detrás del simulador"
+      >
+        <div>
+          <Code2 size={24} />
+          <h2>
+            Así se construye
+            <br />
+            con Sistemas.
+          </h2>
+        </div>
+        <p>
+          <strong>Modela una idea.</strong>
+          <span>Convierte las leyes de la física en algoritmos.</span>
         </p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl w-full relative z-10">
-        <Link 
+        <p>
+          <strong>Hazla visible.</strong>
+          <span>Transforma datos en un universo 3D.</span>
+        </p>
+        <p>
+          <strong>Dale vida.</strong>
+          <span>Diseña experiencias que respondan a cada decisión.</span>
+        </p>
+        <Link
+          className="round-link"
           to="/simulador-orbita"
-          className="group relative flex flex-col p-8 bg-[#0f0f11]/80 backdrop-blur border border-zinc-800 rounded-2xl hover:border-indigo-500/50 hover:bg-indigo-950/20 transition-all duration-300 shadow-xl hover:shadow-indigo-900/20"
+          aria-label="Experimentar en el laboratorio"
         >
-          <div className="w-14 h-14 bg-indigo-600/20 text-indigo-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <Globe className="w-7 h-7" />
-          </div>
-          <h2 className="text-2xl font-bold text-zinc-100 mb-3">Simulador de Órbitas</h2>
-          <p className="text-sm text-zinc-500 flex-1 leading-relaxed">
-            Diseña y ajusta órbitas alrededor de la Tierra, Marte, Júpiter y la Luna. Aprende sobre anomalías, periapsis, apoapsis y realiza maniobras de transferencia de Hohmann.
-          </p>
-          <div className="mt-8 flex items-center text-xs font-mono text-indigo-400 uppercase tracking-wider font-bold">
-            Iniciar Simulación <span className="ml-2 group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-          </div>
+          <ArrowRight size={24} />
         </Link>
-
-        <Link 
-          to="/simulador-sistema-solar"
-          className="group relative flex flex-col p-8 bg-[#0f0f11]/80 backdrop-blur border border-zinc-800 rounded-2xl hover:border-orange-500/50 hover:bg-orange-950/20 transition-all duration-300 shadow-xl hover:shadow-orange-900/20"
-        >
-          <div className="w-14 h-14 bg-orange-600/20 text-orange-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-            <Rocket className="w-7 h-7" />
+      </section>
+      <footer className="home-footer">
+        <span>
+          <Orbit size={15} /> Un proyecto para explorar la carrera de Sistemas
+        </span>
+        <details>
+          <summary>Fuentes y créditos</summary>
+          <div>
+            <p>
+              Datos de referencia:{" "}
+              <a
+                href="https://science.nasa.gov/solar-system/planets/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                NASA Science
+              </a>
+              . Valores aproximados para uso educativo.
+            </p>
+            <p>
+              Mapas planetarios:{" "}
+              <a
+                href="https://www.solarsystemscope.com/textures/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Solar System Scope
+              </a>
+              , licencia{" "}
+              <a
+                href="https://creativecommons.org/licenses/by/4.0/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CC BY 4.0
+              </a>
+              . Sol procedimental; tamaños y distancias comprimidos.
+            </p>
           </div>
-          <h2 className="text-2xl font-bold text-zinc-100 mb-3">Sistema Solar</h2>
-          <p className="text-sm text-zinc-500 flex-1 leading-relaxed">
-            Explora una representación 3D del sistema solar completo, con planetas orbitando alrededor del sol en tiempo real. 
-            <span className="block mt-2 text-orange-500/70 text-xs font-mono">(Módulo en Desarrollo)</span>
-          </p>
-          <div className="mt-8 flex items-center text-xs font-mono text-orange-400 uppercase tracking-wider font-bold">
-            Iniciar Simulación <span className="ml-2 group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-          </div>
-        </Link>
-      </div>
+        </details>
+      </footer>
     </div>
   );
 }

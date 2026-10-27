@@ -1,81 +1,87 @@
-<div align="center">
-  <h1>🌌 Simulador de Órbitas Interactivas</h1>
-  <p>Una aplicación web moderna para la simulación y visualización 3D de órbitas y el sistema solar, potenciada con IA.</p>
-</div>
+# Órbita · Simuladores Astrofísicos
 
-## 📖 Descripción
+Experiencia educativa para una feria de orientación vocacional. Permite explorar el sistema solar y diseñar órbitas para descubrir aplicaciones de la carrera de Sistemas. Interfaz en español, optimizada para laptop o PC con mouse.
 
-El **Simulador de Órbitas Interactivas** es una plataforma educativa interactiva construida con tecnologías web modernas. Permite a los usuarios explorar y simular mecánicas orbitales, visualizar un modelo del sistema solar y experimentar con parámetros físicos en tiempo real utilizando representaciones 3D.
+## Ejecutar
 
-## 🏗️ Arquitectura y Tecnologías
+Requiere Bun o Node.js con un gestor de paquetes.
 
-El proyecto está desarrollado utilizando un stack tecnológico moderno enfocado en el rendimiento y la experiencia de usuario:
-
-- **Core & Framework**: [React 19](https://react.dev/) y [Vite 6](https://vitejs.dev/) para un entorno de desarrollo ultrarrápido.
-- **Visualización 3D**: [Three.js](https://threejs.org/) para el renderizado inmersivo de planetas, órbitas y simulaciones espaciales en 3D.
-- **Enrutamiento**: [TanStack Router](https://tanstack.com/router) para un enrutamiento seguro basado en archivos y tipado fuerte (type-safe routing).
-- **Estilos y UI**: [Tailwind CSS v4](https://tailwindcss.com/) junto con componentes de la interfaz basados en [Shadcn UI](https://ui.shadcn.com/) / [Base UI](https://base-ui.com/), con animaciones fluidas con [Framer Motion](https://motion.dev/).
-- **Inteligencia Artificial**: Integración con el SDK de `@google/genai` (Gemini API) para potenciar características inteligentes dentro de la aplicación.
-- **Lenguaje**: [TypeScript](https://www.typescriptlang.org/) para un tipado estático seguro.
-
-## ✨ Características Principales
-
-- 🪐 **Simulador del Sistema Solar**: Visualización interactiva 3D del sistema solar completo (`/simulador-sistema-solar`).
-- 🚀 **Simulador de Órbitas Personalizadas**: Herramienta interactiva para experimentar con variables físicas (masa, velocidad, distancias) y visualizar trayectorias orbitales en tiempo real (`/simulador-orbita`).
-- 🤖 **Asistencia Inteligente**: Integración con Google Gen AI para proporcionar información contextual o asistencia.
-- 📱 **Diseño Responsivo**: Interfaz fluida adaptable a distintos tamaños de pantalla.
-
-## 📁 Estructura del Proyecto
-
-```text
-├── src/
-│   ├── components/      # Componentes de UI reutilizables (Shadcn, Base UI)
-│   ├── routes/          # Rutas de la aplicación (TanStack Router)
-│   │   ├── index.lazy.tsx                    # Página de inicio
-│   │   ├── simulador-orbita.lazy.tsx         # Simulador interactivo individual
-│   │   └── simulador-sistema-solar.lazy.tsx  # Simulador del sistema solar
-│   ├── lib/             # Utilidades compartidas (ej. utils.ts para tailwind)
-│   ├── index.css        # Estilos globales y configuración base de Tailwind
-│   └── main.tsx         # Punto de entrada principal y renderizado de la app
-├── index.html           # Plantilla HTML principal
-├── package.json         # Dependencias, metadatos y scripts
-├── vite.config.ts       # Configuración del bundler Vite
-└── tsconfig.json        # Configuración del compilador de TypeScript
+```sh
+bun install
+bun run dev
 ```
 
-## 🚀 Empezando (Ejecución Local)
+Abrir http://localhost:3000. Las dependencias se instalan una vez con conexión. Las texturas y fuentes están dentro del proyecto y no requieren internet durante la demostración. No se necesita una clave de IA.
 
-Sigue estos pasos para ejecutar el proyecto de manera local:
+## Compilar y comprobar
 
-### Prerrequisitos
+```sh
+bun run lint
+bun run test
+bun run build
+bun run preview -- --host 127.0.0.1 --port 4173
+```
 
-- [Bun](https://bun.sh/) (Runtime y gestor de paquetes)
+`build` comprueba TypeScript antes de generar `dist/`. `test` verifica referencias orbitales, el solucionador de Kepler, geometría y transferencias. `clean` elimina únicamente `dist/` y funciona en Windows. Los scripts también admiten `npm run` tras instalar dependencias.
 
-### Instalación
+## Experiencias
 
-1. Clona el repositorio e ingresa al directorio del proyecto:
-   ```bash
-   cd interactive-orbit-simulator
-   ```
+- `/`: portada con Tierra 3D y conexión entre programación, datos e interacción.
+- `/simulador-sistema-solar`: ocho planetas en órbitas elípticas, selección por menú o escena, cámara de seguimiento, fichas, pausa, velocidad, reinicio, opciones de calidad, pantalla completa y recorrido automático de diez segundos por planeta. La Luna acompaña a la Tierra.
+- `/simulador-orbita`: altitud, excentricidad e inclinación; ajuste numérico, arrastre del satélite, telemetría, reto guiado y laboratorio de Hohmann.
+- `/galeria-universo`: galería editorial de 16 objetos. Ocho planetas con giro
+  lento, galaxias, agujeros negros, enanas blancas y nebulosas. Incluye Luna,
+  Titán, Encélado y las cuatro lunas galileanas en las escenas correspondientes.
+  Búsqueda sin distinción de acentos, filtros, guardados locales, historias,
+  pantalla completa, modo inmersivo y recorrido automático cada 14 segundos.
+  Flechas izquierda/derecha cambian el objeto; Espacio pausa; Escape sale del
+  modo inmersivo. También funciona con mouse y controles visibles.
 
-2. Instala las dependencias con Bun:
-   ```bash
-   bun install
-   ```
+## Alcance científico
 
-3. Inicia el servidor de desarrollo:
-   ```bash
-   bun run dev
-   ```
+El explorador conserva periodos proporcionales y excentricidades aproximadas. Tamaños y distancias se comprimen para visualizar el conjunto. Las fases iniciales son ilustrativas: no es una efeméride de la fecha actual. Las inclinaciones son aproximadas; los mapas tienen colores realzados. El Sol es procedimental.
 
-5. Abre [http://localhost:3000](http://localhost:3000) en tu navegador para interactuar con la aplicación.
+El laboratorio usa un modelo ideal de dos cuerpos, unidades km y segundos, ecuación de Kepler y vis-viva. No simula atmósfera, perturbaciones, impactos, propulsión ni combustible. Advierte cuando una trayectoria cruza la superficie. Hohmann muestra el plan y sus dos impulsos; no ejecuta una maniobra animada. Al activarlo, la órbita inicial se hace circular.
 
-## 📜 Scripts Disponibles
+## Arquitectura
 
-En el directorio del proyecto, puedes ejecutar:
+```text
+src/routes/                  Rutas y estado del laboratorio
+src/components/
+  SolarSystemScene.tsx        Explorador, fichas y controles solares
+  SpaceCanvas.tsx             Ciclo de vida Three.js, cámara e interacción
+  OrbitScene.tsx              Adaptador del renderizador orbital
+  OrbitPanel.tsx              Controles, telemetría y explicaciones
+src/lib/
+  planets.ts                 Catálogo común y solucionador de Kepler
+  space.ts                   Superficies, nubes, atmósferas y anillos
+  physics/orbital.ts          Cálculos y transferencias
+public/textures/              Mapas locales y CREDITS.md
+public/gallery/               Imágenes astronómicas, mapas de lunas y procedencia
+src/lib/gallery.ts            Catálogo, categorías, lunas y búsqueda normalizada
+src/gallery.css               Tema editorial negro y dorado de la galería
+src/components/GalleryPlanetScene.tsx  Escenas 3D de detalle con lunas
+src/components/GalleryArtwork.tsx      Imágenes y visualización GIF pausable
+tests/orbital.test.ts         Pruebas con node:test
+tests/gallery.test.ts         Filtros, procedencia y disponibilidad local de recursos
+docs/FERIA.md                 Guion y preparación
+```
 
-- `bun run dev`: Ejecuta la aplicación en modo desarrollo.
-- `bun run build`: Construye la aplicación optimizada para producción en la carpeta `dist`.
-- `bun run preview`: Sirve localmente la versión compilada de producción para validación.
-- `bun run lint`: Ejecuta TypeScript para verificación de tipos sin emitir archivos compilados (`tsc --noEmit`).
-- `bun run clean`: Elimina los directorios generados y residuales (`dist`).
+React, TypeScript, Three.js, TanStack Router, Vite y Tailwind. La animación usa tiempo transcurrido, se pausa con la pestaña oculta y libera recursos GPU al cambiar de ruta. La preferencia de movimiento reducido inicia las simulaciones en pausa.
+
+## Fuentes y recursos
+
+Datos aproximados: [NASA Science](https://science.nasa.gov/solar-system/planets/) y [Basics of Space Flight](https://science.nasa.gov/learn/basics-of-space-flight/chapter1-2/). Cada ficha enlaza a su referencia.
+
+Texturas: [Solar System Scope](https://www.solarsystemscope.com/textures/), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Detalles en [public/textures/CREDITS.md](public/textures/CREDITS.md) y en la portada.
+
+Las imágenes de la galería provienen de NASA, ESA, CSA, STScI, EHT y ESO. No todas
+son fotografías de luz visible: las fichas explican cada caso. Procedencia exacta
+en [public/gallery/sources.json](public/gallery/sources.json) y créditos en
+[public/gallery/CREDITS.md](public/gallery/CREDITS.md). Los mapas de Titán y
+Encélado usan datos de Cassini; los de Ío, Europa, Ganímedes y Calisto proceden
+del archivo de texturas para modelos 3D de NASA/USGS/JPL/Caltech.
+
+`scripts/fetch-gallery-assets.ps1` reproduce las descargas desde sus páginas de
+origen. La galería usa archivos locales y no llama a APIs externas. Los guardados
+permanecen en el navegador; no se envían a un servidor.

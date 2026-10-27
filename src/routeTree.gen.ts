@@ -13,6 +13,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRouteImport } from './routes/__root'
 
 const IndexLazyRouteImport = createFileRoute('/')()
+const GaleriaUniversoLazyRouteImport = createFileRoute('/galeria-universo')()
 const SimuladorOrbitaLazyRouteImport = createFileRoute('/simulador-orbita')()
 const SimuladorSistemaSolarLazyRouteImport = createFileRoute(
   '/simulador-sistema-solar',
@@ -23,6 +24,13 @@ const IndexLazyRoute = IndexLazyRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+const GaleriaUniversoLazyRoute = GaleriaUniversoLazyRouteImport.update({
+  id: '/galeria-universo',
+  path: '/galeria-universo',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/galeria-universo.lazy').then((d) => d.Route),
+)
 const SimuladorOrbitaLazyRoute = SimuladorOrbitaLazyRouteImport.update({
   id: '/simulador-orbita',
   path: '/simulador-orbita',
@@ -41,30 +49,41 @@ const SimuladorSistemaSolarLazyRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/galeria-universo': typeof GaleriaUniversoLazyRoute
   '/simulador-orbita': typeof SimuladorOrbitaLazyRoute
   '/simulador-sistema-solar': typeof SimuladorSistemaSolarLazyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/galeria-universo': typeof GaleriaUniversoLazyRoute
   '/simulador-orbita': typeof SimuladorOrbitaLazyRoute
   '/simulador-sistema-solar': typeof SimuladorSistemaSolarLazyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexLazyRoute
+  '/galeria-universo': typeof GaleriaUniversoLazyRoute
   '/simulador-orbita': typeof SimuladorOrbitaLazyRoute
   '/simulador-sistema-solar': typeof SimuladorSistemaSolarLazyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/simulador-orbita' | '/simulador-sistema-solar'
+  fullPaths:
+    '/' | '/galeria-universo' | '/simulador-orbita' | '/simulador-sistema-solar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/simulador-orbita' | '/simulador-sistema-solar'
-  id: '__root__' | '/' | '/simulador-orbita' | '/simulador-sistema-solar'
+  to:
+    '/' | '/galeria-universo' | '/simulador-orbita' | '/simulador-sistema-solar'
+  id:
+    | '__root__'
+    | '/'
+    | '/galeria-universo'
+    | '/simulador-orbita'
+    | '/simulador-sistema-solar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  GaleriaUniversoLazyRoute: typeof GaleriaUniversoLazyRoute
   SimuladorOrbitaLazyRoute: typeof SimuladorOrbitaLazyRoute
   SimuladorSistemaSolarLazyRoute: typeof SimuladorSistemaSolarLazyRoute
 }
@@ -76,6 +95,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/galeria-universo': {
+      id: '/galeria-universo'
+      path: '/galeria-universo'
+      fullPath: '/galeria-universo'
+      preLoaderRoute: typeof GaleriaUniversoLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/simulador-orbita': {
@@ -97,6 +123,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  GaleriaUniversoLazyRoute: GaleriaUniversoLazyRoute,
   SimuladorOrbitaLazyRoute: SimuladorOrbitaLazyRoute,
   SimuladorSistemaSolarLazyRoute: SimuladorSistemaSolarLazyRoute,
 }

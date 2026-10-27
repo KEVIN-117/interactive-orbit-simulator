@@ -1,24 +1,58 @@
-import { createRootRoute, Outlet, Link, useRouterState } from '@tanstack/react-router';
-import { Home } from 'lucide-react';
-
-export const Route = createRootRoute({
-  component: RootComponent,
-});
-
-function RootComponent() {
-  const routerState = useRouterState();
-  const isHome = routerState.location.pathname === '/';
-
+import {
+  createRootRoute,
+  Outlet,
+  Link,
+  useRouterState,
+} from "@tanstack/react-router";
+import { Orbit } from "lucide-react";
+export const Route = createRootRoute({ component: Root });
+function Root() {
+  const gallery = useRouterState({
+    select: (state) => state.location.pathname === "/galeria-universo",
+  });
   return (
     <>
-      {!isHome && (
-        <div className="absolute top-2.5 left-4 z-[100] pointer-events-auto">
-          <Link to="/" className="px-3 py-1.5 bg-zinc-900/90 backdrop-blur-sm border border-zinc-700 rounded text-zinc-300 hover:text-white hover:bg-zinc-800 transition shadow-lg flex items-center gap-2 text-xs font-mono uppercase tracking-wider">
-            <Home className="w-3.5 h-3.5" /> Inicio
+      <a className="skip-link" href="#main-content">
+        Saltar al contenido
+      </a>
+      <header className={`app-header ${gallery ? "gallery-header" : ""}`}>
+        <Link
+          to="/"
+          className="brand"
+          aria-label="Simuladores Astrofísicos, inicio"
+        >
+          <Orbit size={26} />
+          <span>
+            Órbita
+            <span className="brand-detail">Explora. Experimenta. Crea.</span>
+          </span>
+        </Link>
+        <nav aria-label="Navegación principal">
+          <Link
+            to="/"
+            activeOptions={{ exact: true }}
+            activeProps={{ className: "active" }}
+          >
+            Inicio
           </Link>
-        </div>
-      )}
-      <Outlet />
+          <Link
+            to="/simulador-sistema-solar"
+            activeProps={{ className: "active" }}
+          >
+            Sistema solar
+          </Link>
+          <Link to="/simulador-orbita" activeProps={{ className: "active" }}>
+            Laboratorio orbital
+          </Link>
+          <Link to="/galeria-universo" activeProps={{ className: "active" }}>
+            Galería del universo
+          </Link>
+        </nav>
+        <span className="header-note">Descubre la carrera de Sistemas</span>
+      </header>
+      <main id="main-content">
+        <Outlet />
+      </main>
     </>
   );
 }
